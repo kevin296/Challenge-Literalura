@@ -1,74 +1,52 @@
 package com.alura.Challenge_Literalura.models;
 
-import jakarta.persistence.*;
+
+import java.util.ArrayList;
 import java.util.List;
-import java.util.Map;
+import java.util.Optional;
+
+import jakarta.persistence.Column;
+import jakarta.persistence.Entity;
+import jakarta.persistence.FetchType;
+import jakarta.persistence.GeneratedValue;
+import jakarta.persistence.GenerationType;
+import jakarta.persistence.Id;
+import jakarta.persistence.JoinColumn;
+import jakarta.persistence.JoinTable;
+import jakarta.persistence.ManyToMany;
+import jakarta.persistence.Table;
 
 @Entity
-@Table(name = "Libro")
+@Table(name = "libros")
 public class Libro {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @Column(name = "titulo", nullable = false)
+    @Column(unique = true)
     private String titulo;
 
-    @Column(name = "autor", nullable = false)
-    private String autor;
+    @ManyToMany(fetch = FetchType.EAGER)
+    @JoinTable(name = "libro_autores", joinColumns = @JoinColumn(name = "libro_id"), inverseJoinColumns = @JoinColumn(name = "autor_id"))
+    private List<Autores> autores = new ArrayList<>();
 
-    @ElementCollection
-    @CollectionTable(name = "libro_traductores", joinColumns = @JoinColumn(name = "libro_id"))
-    @Column(name = "traductor")
-    private List<String> traductores;
-
-    @ElementCollection
-    @CollectionTable(name = "libro_temas", joinColumns = @JoinColumn(name = "libro_id"))
-    @Column(name = "tema")
-    private List<String> temas;
-
-    @ElementCollection
-    @CollectionTable(name = "libro_estanterias", joinColumns = @JoinColumn(name = "libro_id"))
-    @Column(name = "estanteria")
-    private List<String> estanterias;
-
-    @Column(name = "idioma", nullable = false)
     private String idioma;
 
-    @Column(name = "descargable", nullable = false)
-    private boolean descargable;
-
-    @Column(name = "tipo_medio", nullable = false)
-    private String tipoMedio;
-
-    @ElementCollection
-    @CollectionTable(name = "libro_formatos", joinColumns = @JoinColumn(name = "libro_id"))
-    @MapKeyColumn(name = "formato")
-    @Column(name = "url")
-    private Map<String, String> formatos;
-
-    @Column(name = "cantidad_descargas")
-    private int cantidadDescargas;
+    @Column(name = "numero_de_descargas")
+    private Integer numeroDeDescargas;
 
 
-
-    public Libro(DatosLibros datosLibros) {
-        this.autor =datosLibros.autor();
-        this.cantidadDescargas = datosLibros.cantidad_descargas();
-        this.descargable = datosLibros.descargable();
-        this.idioma = datosLibros.idioma();
-        this.tipoMedio = datosLibros.tipo_medio();
-        this.titulo = datosLibros.titulo();
+    public Libro() {
     }
 
-    // Getters y setters
-    public Long getId() {
-        return id;
-    }
-
-    public void setId(Long id) {
-        this.id = id;
+    public Libro(Optional<DatosLibros> datos) {
+        if (datos.isPresent()) {
+            DatosLibros datosLibros = datos.get();
+            this.titulo = datosLibros.titulo();
+            this.idioma = datosLibros.idiomas().isEmpty() ? null : datosLibros.idiomas().get(0);
+            this.numeroDeDescargas = datosLibros.numeroDeDescargas();
+        }
     }
 
     public String getTitulo() {
@@ -79,38 +57,6 @@ public class Libro {
         this.titulo = titulo;
     }
 
-    public String getAutor() {
-        return autor;
-    }
-
-    public void setAutor(String autor) {
-        this.autor = autor;
-    }
-
-    public List<String> getTraductores() {
-        return traductores;
-    }
-
-    public void setTraductores(List<String> traductores) {
-        this.traductores = traductores;
-    }
-
-    public List<String> getTemas() {
-        return temas;
-    }
-
-    public void setTemas(List<String> temas) {
-        this.temas = temas;
-    }
-
-    public List<String> getEstanterias() {
-        return estanterias;
-    }
-
-    public void setEstanterias(List<String> estanterias) {
-        this.estanterias = estanterias;
-    }
-
     public String getIdioma() {
         return idioma;
     }
@@ -119,35 +65,31 @@ public class Libro {
         this.idioma = idioma;
     }
 
-    public boolean isDescargable() {
-        return descargable;
+    public Integer getNumeroDeDescargas() {
+        return numeroDeDescargas;
     }
 
-    public void setDescargable(boolean descargable) {
-        this.descargable = descargable;
+    public void setNumeroDeDescargas(Integer numeroDeDescargas) {
+        this.numeroDeDescargas = numeroDeDescargas;
     }
 
-    public String getTipoMedio() {
-        return tipoMedio;
+    public List<Autores> getAutores() {
+        return autores;
     }
 
-    public void setTipoMedio(String tipoMedio) {
-        this.tipoMedio = tipoMedio;
+    public void setAutores(List<Autores> autores) {
+        this.autores = autores;
     }
 
-    public Map<String, String> getFormatos() {
-        return formatos;
+    @Override
+    public String toString() {
+        return "\n------- LIBRO --------\n Titulo: " + getTitulo() + "\n Autor: "
+                + getAutores().get(0).getNombre()
+                + "\n Idioma: " + getIdioma() + "\n Numero de descargas: " + getNumeroDeDescargas() + "\n";
     }
 
-    public void setFormatos(Map<String, String> formatos) {
-        this.formatos = formatos;
-    }
-
-    public int getCantidadDescargas() {
-        return cantidadDescargas;
-    }
-
-    public void setCantidadDescargas(int cantidadDescargas) {
-        this.cantidadDescargas = cantidadDescargas;
-    }
 }
+
+
+
+

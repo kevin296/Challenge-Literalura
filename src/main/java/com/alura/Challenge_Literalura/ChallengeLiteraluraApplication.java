@@ -11,12 +11,15 @@ public class ChallengeLiteraluraApplication implements CommandLineRunner {
 	@Autowired
 	private LibroRepository libroRepository;
 
+	@Autowired
+	private AutoresRepository autoresrepository;
+
 	public static void main(String[] args) {
 		SpringApplication.run(ChallengeLiteraluraApplication.class, args);
 	}
 	@Override
 	public void run(String... args) throws Exception {
-		Principal principal = new Principal(libroRepository);
-		principal.mostrarMenu();
-}
+		Principal principal = new Principal( libroRepository, autoresrepository);
+		principal.muestraElMenu();
+	}
 }
