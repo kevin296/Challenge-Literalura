@@ -1,14 +1,14 @@
 <h1 align= "center"><em> # Challenge-Literalura </em></h1>
-  <p align="left">
-   <img src="https://STATUS-TERMINADO-green">
-   </p>
- 
+
 
 # LiterAlura
 ---------------------------------------------------------------------------------
 LiterAlura es una aplicación de consola para gestionar una colección de libros y autores. Permite buscar libros por título, listar libros y autores registrados, generar estadísticas de descargas, y más.
 ---------------------------------------------------------------------------------
+![image](https://github.com/kevin296/Challenge-Literalura/assets/65751286/40b26760-0c63-4b0d-beac-cc417cd6a900)
+----------------------------------------------------------------------------------
 ## Características
+---------------------------------------------------------------------------------
 - Menu
 ---------------------------------------------------------------------------------
   ![image](https://github.com/kevin296/Challenge-Literalura/assets/65751286/60a22789-d71a-4466-a533-012f778be66d)
