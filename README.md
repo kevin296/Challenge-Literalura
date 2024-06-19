@@ -1,10 +1,8 @@
 <h1 align= "center"><em> # Challenge-Literalura </em></h1>
   <p align="left">
-   <img src="https://img.shields.io/badge/STATUS-TERMINADO-green">
+   <img src="https://STATUS-TERMINADO-green">
    </p>
-   ![download](https://github.com/kevin296/Challenge-Literalura/assets/65751286/6b64b9f2-06dd-40ec-bb36-99c9b164420a)
-
-
+ 
 
 # LiterAlura
 ---------------------------------------------------------------------------------
