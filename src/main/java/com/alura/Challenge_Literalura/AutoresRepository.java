@@ -9,10 +9,9 @@ import java.util.List;
 import java.util.Optional;
 @Repository
 public interface AutoresRepository extends JpaRepository<Autores, Long> {
-    Autores findByNombreContainsIgnoreCase(String nombre);
-
-    Optional<Autores> findByNombreAndFechaNacimientoAndFechaFallecimiento(String nombre, Integer fechaNacimiento, Integer fechaFallecimiento);
-
+    Optional<Autores> findByNombreAndFechaNacimientoAndFechaFallecimiento(String nombre, int fechaNacimiento, int fechaFallecimiento);
+    Optional<Autores> findByNombre(String nombre);
+    List<Autores> findByFechaNacimientoAndFechaFallecimiento(int fechaNacimiento, int fechaFallecimiento);
     @Query("SELECT a FROM Autores a WHERE a.fechaNacimiento <= :fecha AND a.fechaFallecimiento >= :fecha")
     List<Autores> buscarAutoresPorDeterminadoAño(int fecha);
 }
